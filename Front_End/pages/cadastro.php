@@ -4,6 +4,12 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cadastrar_produto'])) {
         CadastrarNovosProdutos($mysqli);
     }
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['excluir_produto'])) {
+        ExcluirProduto($mysqli, $_POST['id']);
+    }
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editar_produto'])) {
+        EditarProduto($mysqli, $_POST['id'], $_POST['nome'], $_POST['categoria'], $_POST['preco']);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
