@@ -1,7 +1,5 @@
 <?php
 
-    session_start();
-
     if(!isset($_SESSION['produtos'])) {
         $_SESSION['produtos'] = [];
     }
@@ -14,23 +12,24 @@
 
 
     function pesquisar_valor($mysqli, $nome_produto) {
-        $stmt = $mysqli->prepare("SELECT preco FROM produtos WHERE nome = ?");
+        $stmt = $mysqli->prepare("SELECT preco, categoria FROM produtos WHERE nome = ?");
         $stmt->bind_param("s", $nome_produto);
         $stmt->execute();
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            return $row['preco'];
+            return $row;
         } else {
             return null;
         }
     }
 
     function adicionar_produto($mysqli) {
-        $categoria = $_POST['categoria'];
+        $pesquisa = pesquisar_valor($mysqli, $_POST['nome']);
         $nome = $_POST['nome'];
         $quantidade = $_POST['quantidade'];
-        $valor_unitario = pesquisar_valor($mysqli, $nome);
+        $valor_unitario = $pesquisa['preco'];
+        $categoria = $pesquisa['categoria'];
         $Total = $quantidade * $valor_unitario;
 
         $_SESSION['produtos'][] = ['categoria' => $categoria, 'nome' => $nome, 'quantidade' => $quantidade, 'valor_unitario' => $valor_unitario, 'total' => $Total];
@@ -83,21 +82,51 @@
             $valor_unitario = $produto['valor_unitario'];
             $total = $produto['total'];
             $data_registro = date('Y-m-d H:i:s');
+            $mes_ano = Formatar_data($data_registro);
+
+            $stmt = $mysqli->prepare("INSERT INTO vendas (categoria, produto, preco, quantidade, Total_faturado, Data_registro, mes_ano) VALUES (?, ?, ?, ?, ?, ?, ?)");
             
-            $stmt = $mysqli->prepare("INSERT INTO vendas (categoria, produto, preco, quantidade, Total_faturado, Data_registro) VALUES (?, ?, ?, ?, ?, ?)");
-            
-            $stmt->bind_param("ssdids",
+            $stmt->bind_param("ssdidss",
                 $categoria,
                 $nome,
                 $valor_unitario,
                 $quantidade,
                 $total,          
-                $data_registro           
+                $data_registro,
+                $mes_ano           
             );
             
             $stmt->execute();
+            $_SESSION['produtos'] = [];
         }
         session_destroy();
+    }
+
+    function Formatar_data($data) {
+        $timestamp = strtotime($data);
+        if ($timestamp === false) {
+            return '';
+        }
+
+        $meses = [
+            1 => 'jan',
+            2 => 'fev',
+            3 => 'mar',
+            4 => 'abr',
+            5 => 'mai',
+            6 => 'jun',
+            7 => 'jul',
+            8 => 'ago',
+            9 => 'set',
+            10 => 'out',
+            11 => 'nov',
+            12 => 'dez',
+        ];
+
+        $mes = (int) date('n', $timestamp);
+        $ano = date('Y', $timestamp);
+
+        return sprintf('%s/%s', $meses[$mes], $ano);    
     }
 
 ?>

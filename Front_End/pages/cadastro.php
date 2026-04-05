@@ -1,6 +1,6 @@
 <?php
-    require_once '../../Back_End/Main.php';
-    require_once '../../Back_End/Cadastrar_Produto.php';
+    require_once '../../Back_End/php/Main.php';
+    require_once '../../Back_End/php/Cadastrar_Produto.php';
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cadastrar_produto'])) {
         CadastrarNovosProdutos($mysqli);
     }
@@ -16,18 +16,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Paginas.css">
+    <link rel="stylesheet" href="styles/Paginas.css">
     <title>cadastro</title>
 </head>
 <body>
     <aside>
         <h1> Cadastrar Novo Produto</h1>
         <form method="POST" action="">
+            <label for="categoria">Categoria:</label>
+            <input list="categorias" type="text" id="categoria" name="categoria" required>
+            
+            <datalist id="categorias">
+                <?php Categorias() ?>
+            </datalist>
+
             <label for="nome">Nome do Produto:</label>
             <input type="text" id="nome" name="nome" required>
-
-            <label for="categoria">Categoria:</label>
-            <input type="text" id="categoria" name="categoria" required>
 
             <label for="preco">Preço:</label>
             <input type="number" step="0.01" id="preco" name="preco" required>

@@ -51,4 +51,26 @@
         }
         $stmt->close();
     }
+    function Produtos() {
+        global $mysqli;
+        $result = $mysqli->query("SELECT nome FROM produtos");
+        while ($row = $result->fetch_assoc()) {
+            echo "<option value='" . htmlspecialchars($row['nome']) . "'>" . htmlspecialchars($row['nome']) . "</option>";
+        }
+    }
+    function Categorias() {
+        global $mysqli;
+        $result = $mysqli->query("SELECT DISTINCT categoria FROM produtos");
+        while ($row = $result->fetch_assoc()) {
+            echo "<option value='" . htmlspecialchars($row['categoria']) . "'>" . htmlspecialchars($row['categoria']) . "</option>";
+        }
+    }
+    function Periodos() {
+        global $mysqli;
+        $result = $mysqli->query("SELECT DISTINCT mes_ano FROM vendas");
+        while ($row = $result->fetch_assoc()) {
+            echo "<option value='" . htmlspecialchars($row['mes_ano']) . "'>" . htmlspecialchars($row['mes_ano']) . "</option>";
+        }
+    }
+
 ?>
