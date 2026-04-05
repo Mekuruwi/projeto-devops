@@ -11,6 +11,7 @@
         <ul>
             <li><a href="pages/cadastro.php" target="mainFrame">Cadastrar</a></li>
             <li><a href="pages/Painel_Venda.php" target="mainFrame">Vendas</a></li>
+            <li><a href="pages/Relatorio.php" target="mainFrame">Relatório</a></li>
         </ul>
     </nav>
 
