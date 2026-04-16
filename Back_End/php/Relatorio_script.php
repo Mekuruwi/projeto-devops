@@ -79,5 +79,53 @@ function Ticket_medio() {
         $ticket_medio = 0;
     }
     return $ticket_medio;
-}
+    }
+    function buscarDadosGrafico($mysqli, $periodo, $categoria, $produto) {
+        $labels = [];
+        $valores = [];
+
+        $sql = "SELECT mes_ano, SUM(Total_faturado) AS total FROM vendas";
+        $conditions = [];
+
+        if ($periodo !== '') {
+            $conditions[] = "mes_ano = ?";
+        }
+        if ($categoria !== '') {
+            $conditions[] = "categoria = ?";
+        }
+        if ($produto !== '') {
+            $conditions[] = "produto = ?";
+        }
+
+        if (!empty($conditions)) {
+            $sql .= " WHERE " . implode(" AND ", $conditions);
+        }
+        $sql .= " GROUP BY mes_ano ORDER BY mes_ano";
+
+        $stmt = $mysqli->prepare($sql);
+        if (!$stmt) {
+            error_log("Erro na query: " . $mysqli->error);
+            return ['labels' => [], 'valores' => []];
+        }
+        $result = $stmt->get_result();
+
+        if ($result){
+            while ($row = $result->fetch_assoc()) {
+                $labels[] = $row['mes_ano'];
+                $valores[] = (float)$row['total'];
+            }
+        }
+        return[
+            'labels' => $labels,
+            'datasets' => [[
+                'label' => 'Total Faturado',
+                'data' => $valores,
+                'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
+                'borderColor' => 'rgba(75, 192, 192, 1)',
+                'borderWidth' => 1,
+                'tension' => 0.4,
+                'fill' => true
+            ]]
+        ];
+    }
 ?>
