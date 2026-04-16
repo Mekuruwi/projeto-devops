@@ -1,7 +1,7 @@
 <?php
     header('Content-Type: application/json');
-    require_once 'php/relatorio_script.php';
-    require_once 'php/Conexao.php';
+    require_once 'relatorio_script.php';
+    require_once 'Conexao.php';
 
     $periodo = $_GET['Periodo'] ?? '';
     $categoria = $_GET['Categoria'] ?? '';
