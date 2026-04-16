@@ -1,6 +1,6 @@
 <?php
-    require_once '../../Back_End/php/Main.php';
-    require_once '../../Back_End/php/Cadastrar_Produto.php';
+    require_once '../../../Back_End/php/Main.php';
+    require_once '../../../Back_End/php/Cadastrar_Produto.php';
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cadastrar_produto'])) {
         CadastrarNovosProdutos($mysqli);
     }
@@ -10,13 +10,16 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editar_produto'])) {
         EditarProduto($mysqli, $_POST['id'], $_POST['nome'], $_POST['categoria'], $_POST['preco']);
     }
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
+        BuscarProdutos($mysqli, $_POST['search']);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/Paginas.css">
+    <link rel="stylesheet" href="../styles/Paginas.css">
     <title>cadastro</title>
 </head>
 <body>
@@ -45,3 +48,4 @@
     </main>
 </body>
 </html>
+<script src="../Scripts/script.js"></script>

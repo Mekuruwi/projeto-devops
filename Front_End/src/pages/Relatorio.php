@@ -4,8 +4,8 @@ $Periodo   = $_GET['Periodo'] ?? '';
 $Categoria = $_GET['Categoria'] ?? '';
 $Produto   = $_GET['Produto'] ?? '';
 
-require_once '../../Back_End/php/Main.php';
-require_once '../../Back_End/php/Relatorio_script.php';
+require_once '../../../Back_End/php/Main.php';
+require_once '../../../Back_End/php/Relatorio_script.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['Filtrar'])) {
         Filtrar($mysqli, $Periodo, $Categoria, $Produto);
@@ -19,7 +19,7 @@ require_once '../../Back_End/php/Relatorio_script.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/Paginas.css">
+    <link rel="stylesheet" href="../styles/Paginas.css">
     <title>Relatório</title>
 </head>
 <body>
@@ -76,5 +76,5 @@ require_once '../../Back_End/php/Relatorio_script.php';
     </main>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script></script>
+<script src="../Scripts/script.js"></script>
 </html>

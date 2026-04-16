@@ -3,7 +3,7 @@
     
     Function BuscarProdutos($mysqli) {
         $dados = Produtos_registrados($mysqli);
-        
+
         echo "<table>";
         echo "<tr><th>Nome</th><th>Categoria</th><th>Preço</th><th>Modificar</th><th>Excluir</th></tr>";   
         

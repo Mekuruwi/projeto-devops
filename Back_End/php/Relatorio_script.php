@@ -14,7 +14,7 @@ function Filtrar($mysqli, $Periodo, $Categoria, $Produto) {
 
     
     if ($Periodo !== '') {
-        $conditions[] = "Data_registro >= ?";
+        $conditions[] = "mes_ano = ?";
         $types .= 's';
         $params[] = $Periodo;
     }

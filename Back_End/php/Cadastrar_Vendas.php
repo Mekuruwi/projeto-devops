@@ -1,5 +1,6 @@
 <?php
 
+    
     if(!isset($_SESSION['produtos'])) {
         $_SESSION['produtos'] = [];
     }
@@ -44,6 +45,7 @@
                     <td>{$produto['quantidade']}</td>
                     <td>R$ " . number_format($produto['valor_unitario'], 2, ',', '.') . "</td>
                     <td>R$ " . number_format($produto['total'], 2, ',', '.') . "</td>
+                    <td><form method='POST' action=''><button name='remover_produto' value='" . key($_SESSION['produtos']) . "' type='submit'>Remover</button></form></td>
                 </tr>";
             next($_SESSION['produtos']);
         }
