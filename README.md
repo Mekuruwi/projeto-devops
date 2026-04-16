@@ -85,21 +85,48 @@ CREATE DATABASE nome_do_banco;
 
 USE nome_do_banco;
 
+-- Tabela de produtos
 CREATE TABLE produtos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     categoria VARCHAR(100) NOT NULL,
-    preco DECIMAL(10, 2) NOT NULL
+    preco DOUBLE NOT NULL
 );
 
+-- Tabela de vendas
 CREATE TABLE vendas (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    produto_id INT NOT NULL,
+    categoria VARCHAR(100) NOT NULL,
+    produto VARCHAR(255) NOT NULL,
+    preco DOUBLE NOT NULL,
     quantidade INT NOT NULL,
-    mes_ano VARCHAR(20),
-    FOREIGN KEY (produto_id) REFERENCES produtos(id)
+    Total_faturado DOUBLE NOT NULL,
+    Data_registro DATETIME NOT NULL,
+    mes_ano VARCHAR(20) NOT NULL
 );
 ```
+
+**Estrutura detalhada das tabelas:**
+
+#### Tabela `produtos`
+| Coluna    | Tipo         | Descrição              |
+|-----------|--------------|------------------------|
+| id        | INT          | Chave primária         |
+| nome      | VARCHAR(255) | Nome do produto        |
+| categoria | VARCHAR(100) | Categoria do produto   |
+| preco     | DOUBLE       | Preço do produto       |
+
+#### Tabela `vendas`
+| Coluna         | Tipo          | Descrição                    |
+|----------------|---------------|------------------------------|
+| id             | INT           | Chave primária               |
+| categoria      | VARCHAR(100)  | Categoria do produto vendido |
+| produto        | VARCHAR(255)  | Nome do produto              |
+| preco          | DOUBLE        | Preço unitário               |
+| quantidade     | INT           | Quantidade vendida           |
+| Total_faturado | DOUBLE        | Total da venda               |
+| Data_registro  | DATETIME      | Data e hora da venda         |
+| mes_ano        | VARCHAR(20)   | Período (formato: mmm/YYYY)  |
 
 ## 🔧 Uso
 
