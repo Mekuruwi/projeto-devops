@@ -43,8 +43,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            display: true,
+                            display: false,
                             position: 'top',
+                        }
+                    },
+                    tooltip:{
+                        enabled: true,
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.parsed.y || 0;
+                                return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                            }
+                        }
+                    },
+                    dataLabels: {
+                        anchor: 'end',
+                        align: 'top',
+                        color: '#000',
+                        font:{
+                            weight: 'bold',
+                            size: 12
+                        },
+                        formatter: function(value) {
+                            return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                         }
                     },
                     scales: {
@@ -55,6 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
                                     return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                                 }
                             }   
+                        },
+                        x: {
+                            grid:{
+                                display: false
+                            }
                         }
                     }
                 }

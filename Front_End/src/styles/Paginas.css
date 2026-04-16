@@ -869,7 +869,7 @@ body.page-vendas {
     grid-column: 1 / -1;
     height: 400px;
     padding: 1.5rem;
-    background: white;
+    background: var(--bg-glass);
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }

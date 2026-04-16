@@ -1,0 +1,32 @@
+# --- Editor de Código (VS Code) ---
+.vscode/
+*.code-workspace
+
+# --- Logs e Debug ---
+*.log
+error_log
+php_errors.log
+debug.log
+
+# --- Arquivos Temporários e Cache ---
+*.tmp
+*.temp
+.cache/
+.DS_Store           # macOS
+Thumbs.db           # Windows
+
+# --- Dependências (se usar Composer ou NPM no futuro) ---
+/vendor/
+/node_modules/
+package-lock.json
+composer.lock
+
+# --- Arquivos de Configuração Local (Banco de Dados, Senhas) ---
+# Cuidado: Nunca suba senhas reais para o Git
+config_local.php
+.env
+*.env
+
+# --- Backups gerados manualmente ---
+*.bak
+*.sql               # Se não quiser subir dumps de banco de dados
