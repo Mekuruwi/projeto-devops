@@ -107,6 +107,7 @@ function Ticket_medio() {
             error_log("Erro na query: " . $mysqli->error);
             return ['labels' => [], 'valores' => []];
         }
+        $stmt->bind_param("ssss", $periodo, $categoria, $produto);
         $result = $stmt->get_result();
 
         if ($result){

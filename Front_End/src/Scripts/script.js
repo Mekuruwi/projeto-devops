@@ -3,11 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!canvas) return;
     
     const ctx = canvas.getContext('2d');
-    const periodo = document.getElementById('periodo').value;
-    const categoria = document.getElementById('categoria').value;
-    const produto = document.getElementById('produto').value;
+    const periodo = document.getElementById('Periodo').value;
+    const categoria = document.getElementById('Categoria').value;
+    const produto = document.getElementById('Produto').value;
 
-    fetch(`php/api_grafico.php?Periodo=${encodeURIComponent(periodo)}&Categoria=${encodeURIComponent(categoria)}&Produto=${encodeURIComponent(produto)}`)
+    fetch(`../../../Back_End/php/api_grafico.php?Periodo=${encodeURIComponent(periodo)}&Categoria=${encodeURIComponent(categoria)}&Produto=${encodeURIComponent(produto)}`)
         .then(response => response.json())
         .then(data => {
             new Chart(ctx, {
