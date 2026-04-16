@@ -1,9 +1,14 @@
 <?php
     
-    $host = "localhost:3306";
-    $banco = "projeto_devops";
-    $usuario = "root";
-    $senha = "kevin5516ex";
+    require_once __DIR__ . '/../../vendor/autoload.php';
+    
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+    $dotenv->load();
+
+    $host = $_ENV['db_host'];
+    $banco = $_ENV['db_name'];
+    $usuario = $_ENV['db_user'];
+    $senha = $_ENV['db_password'];
 
     $mysqli = new mysqli($host, $usuario, $senha, $banco);
 

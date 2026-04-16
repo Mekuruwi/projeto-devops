@@ -16,7 +16,7 @@ debug.log
 Thumbs.db           # Windows
 
 # --- Dependências (se usar Composer ou NPM no futuro) ---
-/vendor/
+vendor/
 /node_modules/
 package-lock.json
 composer.lock
