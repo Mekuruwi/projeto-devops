@@ -20,7 +20,7 @@
         </button>
     </nav>
 
-    <iframe name="mainFrame" src="src/pages/Painel_Venda.php" width="100%" height="100%"></iframe>
+    <iframe name="mainFrame" src="src/pages/Relatorio.php" width="100%" height="100%"></iframe>
 
     <footer>
         <p>&copy; 2026 Projeto DevOps. Todos os direitos reservados.</p>

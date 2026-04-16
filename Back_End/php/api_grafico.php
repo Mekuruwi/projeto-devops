@@ -10,4 +10,6 @@
     $dados = buscarDadosGrafico($mysqli, $periodo, $categoria, $produto);
 
     echo json_encode($dados);
+    
+    exit;
 ?>

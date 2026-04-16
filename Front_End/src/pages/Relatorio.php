@@ -72,9 +72,9 @@ require_once '../../../Back_End/php/Relatorio_script.php';
         <div class="grafics">
             <canvas id="myChart"></canvas>
         </div>
-
     </main>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="../Scripts/script.js"></script>
+<script src="../../../Back_End/js/graficos.js"></script>
 </html>
