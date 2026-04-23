@@ -1,207 +1,123 @@
-# Projeto DevOps - Sistema de Gerenciamento de Produtos e Vendas
+# Projeto DevOps
 
-Um sistema web completo para gerenciamento de produtos, vendas e geração de relatórios, desenvolvido com PHP no back-end e HTML/CSS/JavaScript no front-end.
+Sistema de gestão de vendas com backend PHP e frontend, containerizado com Docker.
 
-## 📋 Visão Geral
+## 🚀 Tecnologias
 
-Este projeto fornece uma interface para:
-- Cadastro e gerenciamento de produtos
-- Registro de vendas
-- Geração de relatórios e gráficos
-- Controle de categorias e períodos
+- **Backend:** PHP 7.4
+- **Frontend:** HTML, CSS, JavaScript
+- **Banco de Dados:** MySQL 5.7
+- **Containerização:** Docker & Docker Compose
+- **Dependências:** phpdotenv
 
-## 🏗️ Estrutura do Projeto
+## 📋 Pré-requisitos
+
+- Docker
+- Docker Compose
+
+## 🛠️ Instalação
+
+1. Clone o repositório:
+```bash
+git clone <repositorio>
+cd Projeto_DevOps
+```
+
+2. Inicie os containers:
+```bash
+docker-compose up --build
+```
+
+3. Acesse a aplicação:
+- Frontend: `http://localhost:8000`
+- Banco de Dados: `localhost:3306`
+
+## 📦 Estrutura do Projeto
 
 ```
-/workspace
-├── Back_End/
-│   ├── js/
-│   │   └── graficos.js          # Lógica para renderização de gráficos
-│   └── php/
-│       ├── Conexao.php          # Configuração de conexão com banco de dados
-│       ├── Main.php             # Funções principais (CRUD de produtos)
-│       ├── Cadastrar_Produto.php # Cadastro de novos produtos
-│       ├── Cadastrar_Vendas.php  # Registro de vendas
-│       ├── Relatorio_script.php  # Geração de relatórios
-│       └── api_grafico.php      # API para dados de gráficos
-│
-├── Front_End/
+Projeto_DevOps/
+├── Back_End/           # Backend PHP
+│   ├── js/             # Scripts JavaScript
+│   └── php/            # Arquivos PHP
+├── Front_End/         # Frontend
 │   ├── src/
-│   │   ├── pages/
-│   │   │   ├── cadastro.php     # Página de cadastro de produtos
-│   │   │   ├── Painel_Venda.php # Painel de vendas
-│   │   │   └── Relatorio.php    # Página de relatórios
-│   │   ├── Scripts/
-│   │   │   └── script.js        # Scripts JavaScript
-│   │   └── styles/
-│   │       └── Paginas.css      # Estilos das páginas
-│   ├── index.php                # Página principal
-│   ├── Script.js                # Script principal (tema dark/light)
-│   └── Style.css                # Estilos principais
-│
-├── composer.json                # Dependências PHP
-└── .gitignore                   # Arquivos ignorados pelo Git
+│   │   ├── pages/     # Páginas PHP
+│   │   ├── Scripts/   # Scripts JS
+│   │   └── styles/    # Arquivos CSS
+│   ├── index.php
+│   ├── Script.js
+│   └── Style.css
+├── init_db/           # Scripts de inicialização do banco
+├── docker-compose.yml # Configuração Docker Compose
+├── Dockerfile        # Configuração da imagem PHP
+└── composer.json     # Dependências PHP
 ```
 
-## 🚀 Requisitos
+## 🔧 Configuração
 
-- PHP 7.4 ou superior
-- MySQL ou MariaDB
-- Composer (para dependências PHP)
-- Navegador web moderno
+As variáveis de ambiente são configuradas no arquivo `docker-compose.yml`:
+- `DB_HOST`: Host do banco de dados (db)
+- `DB_NAME`: Nome do banco (projeto)
+- `DB_USER`: Usuário do banco (dev)
+- `DB_PASSWORD`: Senha do banco (dev123)
 
-## 📦 Instalação
+## 🗄️ Banco de Dados
 
-### 1. Clonar o repositório
+O banco de dados MySQL é inicializado automaticamente ao iniciar os containers Docker. O script `init_db/init.sql` cria o banco `projeto_devops` e todas as tabelas necessárias.
+
+### Tabelas do Sistema
+
+#### 1. `produtos`
+Tabela responsável pelo cadastro de produtos disponíveis para venda.
+
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| `id` | INT (AI) | Identificador único do produto |
+| `categoria` | VARCHAR(30) | Categoria do produto (ex: Eletrônicos, Vestuário) |
+| `produto` | VARCHAR(40) | Nome do produto |
+| `preco` | DECIMAL(10,2) | Preço de venda do produto |
+| `estoque` | INT | Quantidade disponível em estoque |
+
+#### 2. `vendas`
+Tabela que armazena todos os registros de vendas realizadas.
+
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| `id` | INT (AI) | Identificador único da venda |
+| `categoria` | VARCHAR(30) | Categoria do produto vendido |
+| `produto` | VARCHAR(40) | Nome do produto vendido |
+| `preco` | DECIMAL(10,2) | Preço unitário no momento da venda |
+| `quantidade` | INT | Quantidade de itens vendidos |
+| `Data_registro` | DATETIME | Data e hora do registro (padrão: current_timestamp) |
+| `mes_ano` | VARCHAR(10) | Mês e ano da venda (formato: MM/AAAA) |
+
+#### 3. `usuarios`
+Tabela de usuários do sistema para autenticação.
+
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| `id` | INT (AI) | Identificador único do usuário |
+| `login` | VARCHAR(50) | Nome de usuário (único) |
+| `senha` | VARCHAR(255) | Senha hash (armazenada em texto plano neste projeto) |
+
+### Usuário Padrão
+- Login: `admin`
+- Senha: `admin123`
+
+> ⚠️ **Nota:** Em ambiente de produção, recomenda-se implementar hash de senhas (bcrypt) para maior segurança.
+
+## 📄 Comandos Úteis
 
 ```bash
-git clone <repository-url>
-cd <project-directory>
+# Iniciar containers
+docker-compose up -d
+
+# Parar containers
+docker-compose down
+
+# Ver logs
+docker-compose logs -f
+
+# Rebuild
+docker-compose up --build --force-recreate
 ```
-
-### 2. Instalar dependências PHP
-
-```bash
-php composer.phar install
-```
-
-### 3. Configurar variáveis de ambiente
-
-Crie um arquivo `.env` na raiz do projeto com as seguintes configurações:
-
-```env
-db_host=localhost
-db_name=nome_do_banco
-db_user=usuario_do_banco
-db_password=sua_senha
-```
-
-### 4. Configurar o banco de dados
-
-Crie o banco de dados e as tabelas necessárias:
-
-```sql
-CREATE DATABASE nome_do_banco;
-
-USE nome_do_banco;
-
--- Tabela de produtos
-CREATE TABLE produtos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    categoria VARCHAR(100) NOT NULL,
-    preco DOUBLE NOT NULL
-);
-
--- Tabela de vendas
-CREATE TABLE vendas (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    categoria VARCHAR(100) NOT NULL,
-    produto VARCHAR(255) NOT NULL,
-    preco DOUBLE NOT NULL,
-    quantidade INT NOT NULL,
-    Total_faturado DOUBLE NOT NULL,
-    Data_registro DATETIME NOT NULL,
-    mes_ano VARCHAR(20) NOT NULL
-);
-```
-
-**Estrutura detalhada das tabelas:**
-
-#### Tabela `produtos`
-| Coluna    | Tipo         | Descrição              |
-|-----------|--------------|------------------------|
-| id        | INT          | Chave primária         |
-| nome      | VARCHAR(255) | Nome do produto        |
-| categoria | VARCHAR(100) | Categoria do produto   |
-| preco     | DOUBLE       | Preço do produto       |
-
-#### Tabela `vendas`
-| Coluna         | Tipo          | Descrição                    |
-|----------------|---------------|------------------------------|
-| id             | INT           | Chave primária               |
-| categoria      | VARCHAR(100)  | Categoria do produto vendido |
-| produto        | VARCHAR(255)  | Nome do produto              |
-| preco          | DOUBLE        | Preço unitário               |
-| quantidade     | INT           | Quantidade vendida           |
-| Total_faturado | DOUBLE        | Total da venda               |
-| Data_registro  | DATETIME      | Data e hora da venda         |
-| mes_ano        | VARCHAR(20)   | Período (formato: mmm/YYYY)  |
-
-## 🔧 Uso
-
-### Iniciar o servidor de desenvolvimento
-
-```bash
-# Usando o servidor embutido do PHP
-php -S localhost:8000 -t Front_End
-```
-
-Acesse a aplicação em: `http://localhost:8000`
-
-### Funcionalidades
-
-1. **Cadastrar Produtos**
-   - Acesse a página de cadastro através do menu
-   - Preencha categoria, nome e preço do produto
-   - Clique em "Cadastrar"
-
-2. **Gerenciar Produtos**
-   - Visualize todos os produtos cadastrados
-   - Edite informações existentes
-   - Exclua produtos
-
-3. **Registrar Vendas**
-   - Selecione o produto vendido
-   - Informe a quantidade e período
-   - Registre a venda
-
-4. **Relatórios e Gráficos**
-   - Visualize relatórios de vendas
-   - Acompanhe gráficos de desempenho
-   - Filtre por período
-
-## 🎨 Recursos
-
-- ✅ Interface responsiva
-- ✅ Tema claro/escuro (dark mode)
-- ✅ CRUD completo de produtos
-- ✅ Registro de vendas
-- ✅ Relatórios dinâmicos
-- ✅ Gráficos interativos
-- ✅ Conexão segura com banco de dados (prepared statements)
-- ✅ Variáveis de ambiente para configuração
-
-## 🛠️ Tecnologias Utilizadas
-
-### Back-End
-- PHP
-- MySQL/MariaDB
-- vlucas/phpdotenv (gerenciamento de variáveis de ambiente)
-
-### Front-End
-- HTML5
-- CSS3
-- JavaScript (Vanilla)
-
-## 📝 Notas
-
-- Certifique-se de que o servidor web tenha permissão de escrita nas pastas necessárias
-- Para produção, configure adequadamente as credenciais do banco de dados
-- Mantenha o arquivo `.env` fora do controle de versão (já está no `.gitignore`)
-
-## 📄 Licença
-
-© 2026 Projeto DevOps. Todos os direitos reservados.
-
-## 🤝 Contribuição
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
----
-
-**Desenvolvido como parte do Projeto DevOps**
