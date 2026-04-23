@@ -56,9 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                         }
                     },
-                    dataLabels: {
+                    datalabels: {
                         anchor: 'end',
                         align: 'top',
+                        offset: 4,
                         color: '#000',
                         font:{
                             weight: 'bold',

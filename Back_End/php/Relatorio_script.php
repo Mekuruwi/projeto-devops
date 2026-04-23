@@ -84,7 +84,7 @@
         $labels = [];
         $valores = [];
 
-        $sql = "SELECT mes_ano, SUM(Total_faturado) AS total FROM vendas";
+        $sql = "SELECT date_format(Data_registro, '%d-%b') as dia, SUM(Total_faturado) AS total FROM vendas";
         $conditions = [];
         $types = '';
         $params = [];
@@ -108,7 +108,7 @@
         if (!empty($conditions)) {
             $sql .= " WHERE " . implode(" AND ", $conditions);
         }
-        $sql .= " GROUP BY mes_ano ORDER BY mes_ano";
+        $sql .= " GROUP BY dia ORDER BY dia";
 
         $stmt = $mysqli->prepare($sql);
         if (!$stmt) {
@@ -127,7 +127,7 @@
 
         if ($result){
             while ($row = $result->fetch_assoc()) {
-                $labels[] = $row['mes_ano'];
+                $labels[] = $row['dia'];
                 $valores[] = (float)$row['total'];
             }
         }
