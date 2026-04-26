@@ -8,7 +8,7 @@
         ExcluirProduto($mysqli, $_POST['id']);
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['editar_produto'])) {
-        EditarProduto($mysqli, $_POST['id'], $_POST['nome'], $_POST['categoria'], $_POST['preco']);
+        EditarProduto($mysqli, $_POST['id'], $_POST['nome'], $_POST['categoria'], $_POST['preco'], $_POST['estoque']);
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
         BuscarProdutos($mysqli, $_POST['search']);

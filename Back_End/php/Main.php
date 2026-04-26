@@ -5,7 +5,7 @@
         $dados = Produtos_registrados($mysqli);
 
         echo "<table>";
-        echo "<tr><th>Nome</th><th>Categoria</th><th>Preço</th><th>Modificar</th><th>Excluir</th></tr>";   
+        echo "<tr><th>Nome</th><th>Categoria</th><th>Preço</th><th>Estoque</th><th>Modificar</th><th>Excluir</th></tr>";   
         
         while ($produto = $dados->fetch_assoc()) {
             echo "<tr>";
@@ -14,6 +14,7 @@
             echo "<td><input id='nome' name='nome' type='text' value='" . $produto['nome'] . "' ></td>";
             echo "<td><input id='categoria' name='categoria' type='text' value='" . $produto['categoria'] . "' ></td>";
             echo "<td><input id='preco' name='preco' type='text' value='R$ " . number_format($produto['preco'], 2, ',', '.') . "' ></td>";
+            echo "<td><input id='estoque' name='estoque' value='" . $produto['estoque'] . "' ></td>";
             echo "<td><button type='submit' name='editar_produto' value='" . $produto['id'] . "'>Editar</button></td>";
             echo "<td><button type='submit' name='excluir_produto' value='" . $produto['id'] . "'>Excluir</button></td>";
             echo "</form>";
@@ -36,14 +37,14 @@
         $stmt->close();
     }
 
-    function EditarProduto($mysqli, $id, $nome, $categoria, $preco) {
+    function EditarProduto($mysqli, $id, $nome, $categoria, $preco, $estoque) {
         $preco = trim($preco);
         $preco = str_replace(['R$', 'r$', ' ', '.'], '', $preco);
         $preco = str_replace(',', '.', $preco);
         $preco = (float) $preco;
 
-        $stmt = $mysqli->prepare("UPDATE produtos SET nome = ?, categoria = ?, preco = ? WHERE id = ?");
-        $stmt->bind_param("ssdi", $nome, $categoria, $preco, $id);
+        $stmt = $mysqli->prepare("UPDATE produtos SET nome = ?, categoria = ?, preco = ?, estoque = ? WHERE id = ?");
+        $stmt->bind_param("ssdii", $nome, $categoria, $preco, $estoque, $id);
         if ($stmt->execute()) {
             return "Produto atualizado com sucesso!";
         } else {

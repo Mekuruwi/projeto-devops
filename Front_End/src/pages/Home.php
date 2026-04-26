@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header('Location: src/pages/login.php');
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,10 +16,14 @@
 </head>
 <body>
     <nav class="logo">
+
+        <span class="title">Painel de Vendas</span>
+
         <ul class="nav-links">
             <li><a href="cadastro.php" target="mainFrame">Cadastrar</a></li>
             <li><a href="Painel_Venda.php" target="mainFrame">Vendas</a></li>
             <li><a href="Relatorio.php" target="mainFrame">Relatório</a></li>
+            <li><a href="admin_users.php" target="mainFrame">Usuários</a></li>
         </ul>
         
         <button class="theme-toggle" id="themeToggle">

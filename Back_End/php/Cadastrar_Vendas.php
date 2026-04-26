@@ -99,6 +99,11 @@
             );
             
             $stmt->execute();
+
+            $stmt = $mysqli->prepare("UPDATE produtos SET estoque = estoque - ? WHERE nome = ?");
+            $stmt->bind_param("is", $quantidade, $nome);
+            $stmt->execute();
+
             $_SESSION['produtos'] = [];
         }
         session_destroy();
