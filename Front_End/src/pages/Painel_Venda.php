@@ -1,6 +1,6 @@
 <?php
     session_start();
-    
+
     require_once '../../../Back_End/php/Main.php';
     require_once '../../../Back_End/php/Cadastrar_Vendas.php';
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
