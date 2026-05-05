@@ -6,4 +6,4 @@ create table if not exists users(
     created_at datetime default current_timestamp
 )
 
-insert into users (username, email, password_hash) values ('admin', 'admin@admin.com', '$2b$10$...');
+insert into users (username, email, password_hash) values ('admin', 'admin@admin.com', password_hash('admin123'));
